@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask API Frontend</title>
+</head>
+<body>
+    <h1>Flask API Frontend</h1>
+    <form id="routeForm">
+        <label for="routeInput">Enter route:</label>
+        <input type="text" id="routeInput" name="route">
+        <button type="submit">Go</button>
+    </form>
+    <div id="data"></div>
+    <script>
+document.getElementById('routeForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const route = document.getElementById('routeInput').value;
+    await getData(route);
+});
+
+async function getData(route) {
+    try {
+        
+        const response = await fetch(route);
+        console.log(response)
+        const data = await response.json();
+        console.log(data)
+        const dataDiv = document.getElementById('data');
+        dataDiv.innerHTML = JSON.stringify(data, null, 2);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+    </script>
+</body>
+</html>
