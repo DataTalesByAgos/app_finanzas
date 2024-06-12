@@ -1,9 +1,9 @@
 __pycache__/
 migrations/
 venv/
-config.py
+
 requeriments.txt
-run.py
+
 docker-entrypoint.initdb.d/*
 .vscode/
 .idea/
