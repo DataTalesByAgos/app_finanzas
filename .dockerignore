@@ -1,6 +1,8 @@
+
+secret.yaml
+
 __pycache__/
 migrations/
 venv/
-secret.yaml
 .vscode/
 .idea/
