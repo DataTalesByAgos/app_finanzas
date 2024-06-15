@@ -1,13 +1,20 @@
 from flask import Flask
 from flask_cors import CORS
-from backend.config import Config
+from backend.config import DevelopmentConfig, ProductionConfig
 from backend.extensions import db, migrate
 from .routes import bp as routes_bp
 
-def create_app():
+def create_app(env='dev'):
     app = Flask(__name__, template_folder='./templates')
-    app.config.from_object(Config)
     
+    # Cargar configuración según el entorno
+    if env == 'dev':
+        app.config.from_object(DevelopmentConfig)
+    elif env == 'prod':
+        app.config.from_object(ProductionConfig)
+    else:
+        raise ValueError(f'Invalid environment: {env}')
+
     CORS(app)
     
     db.init_app(app)

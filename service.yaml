@@ -1,9 +1,13 @@
+# For showcasing your Flask app in Kubernetes, use "type: NodePort" to easily expose it
+# on a specific port across all nodes. This simplifies access via any node's IP and the
+# NodePort, like: http://node-ip:NodePort. It's ideal for small projects or demos where
+# simplicity and direct access are more important than automatic load balancing.
 apiVersion: v1
 kind: Service
 metadata:
   name: flask-service
 spec:
-  type: LoadBalancer  # Puede ser NodePort o LoadBalancer dependiendo de tu entorno
+  type: NodePort
   selector:
     app: my-app
   ports:

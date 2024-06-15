@@ -1,17 +1,17 @@
--- Crear tabla alquiler en PostgreSQL
-CREATE TABLE alquiler (
-  id_alquiler SERIAL PRIMARY KEY,
-  id_inmobiliaria INTEGER NOT NULL,
-  id_propiedad INTEGER NOT NULL,
-  fecha_inicio DATE NOT NULL,
-  fecha_fin DATE NOT NULL,
-  precio INTEGER NOT NULL,
-  id_cliente INTEGER NOT NULL,
-  id_transaccion INTEGER NOT NULL
+-- Create rental table in PostgreSQL
+CREATE TABLE rental (
+  id_rental SERIAL PRIMARY KEY,
+  id_real_estate INTEGER NOT NULL,
+  id_property INTEGER NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  price INTEGER NOT NULL,
+  id_client INTEGER NOT NULL,
+  id_transaction INTEGER NOT NULL
 );
 
--- Insertar datos en la tabla alquiler en PostgreSQL
-INSERT INTO alquiler (id_inmobiliaria, id_propiedad, fecha_inicio, fecha_fin, precio, id_cliente, id_transaccion)
+-- Insert data into rental table in PostgreSQL
+INSERT INTO rental (id_real_estate, id_property, start_date, end_date, price, id_client, id_transaction)
 VALUES
 (1, 1, '2024-01-01', '2024-12-31', 1200, 1, 1),
 (2, 2, '2024-02-01', '2024-11-30', 1500, 3, 3),
@@ -24,19 +24,18 @@ VALUES
 (9, 9, '2024-09-01', '2025-08-31', 1550, 3, 4),
 (10, 10, '2024-10-01', '2025-09-30', 1250, 6, 6);
 
--- Crear tabla cliente en PostgreSQL
-CREATE TABLE cliente (
-  id_cliente SERIAL PRIMARY KEY,
-  nombre VARCHAR(50),
-  apellido VARCHAR(50),
-  garantia INTEGER,
+-- Create client table in PostgreSQL
+CREATE TABLE client (
+  id_client SERIAL PRIMARY KEY,
+  first_name VARCHAR(50),
+  last_name VARCHAR(50),
+  warranty INTEGER,
   cuit BIGINT,
-  id_tipo_cliente INTEGER
+  id_client_type INTEGER
 );
 
-
--- Insertar datos en la tabla cliente en PostgreSQL
-INSERT INTO cliente (id_cliente, nombre, apellido, garantia, cuit, id_tipo_cliente) VALUES
+-- Insert data into client table in PostgreSQL
+INSERT INTO client (id_client, first_name, last_name, warranty, cuit, id_client_type) VALUES
 (1, 'franco', 'perex', 1, 2358473, 2),
 (2, 'Juan', 'Franco', 1, 2345664, 2),
 (3, 'Ana', 'Perez', 1, 3456789, 2),
@@ -48,15 +47,15 @@ INSERT INTO cliente (id_cliente, nombre, apellido, garantia, cuit, id_tipo_clien
 (9, 'Luis', 'Garcia', 1, 9012345, 2),
 (10, 'Elena', 'Rodriguez', 1, 1234567, 2);
 
--- Crear tabla cp en PostgreSQL
-CREATE TABLE cp (
+-- Create cp table in PostgreSQL
+CREATE TABLE postal_code (
   id_cp SERIAL PRIMARY KEY,
-  id_provincia INTEGER NOT NULL,
-  id_localidad INTEGER NOT NULL
+  id_province INTEGER NOT NULL,
+  id_city INTEGER NOT NULL
 );
 
--- Insertar datos en la tabla cp en PostgreSQL
-INSERT INTO cp (id_provincia, id_localidad, id_cp) VALUES
+-- Insert data into cp table in PostgreSQL
+INSERT INTO postal_code (id_province, id_city, id_cp) VALUES
 (105, 1000, 200),
 (108, 1006, 201),
 (104, 1002, 202),
@@ -68,65 +67,62 @@ INSERT INTO cp (id_provincia, id_localidad, id_cp) VALUES
 (108, 1008, 208),
 (109, 1009, 209);
 
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estados`
+-- Table structure for table `states`
 --
 
--- Crear tabla estados en PostgreSQL
-CREATE TABLE estados (
-  id_estado INTEGER NOT NULL,
-  nombre_tipo VARCHAR(50) NOT NULL
+-- Create states table in PostgreSQL
+CREATE TABLE states (
+  id_state INTEGER NOT NULL,
+  type_name VARCHAR(50) NOT NULL
 );
 
--- Insertar datos en la tabla estados en PostgreSQL
-INSERT INTO estados (id_estado, nombre_tipo) VALUES
-(1, 'Alquilado'),
-(2, 'Desocupado'),
-(3, 'Suspendido');
+-- Insert data into states table in PostgreSQL
+INSERT INTO states (id_state, type_name) VALUES
+(1, 'Rented'),
+(2, 'Vacant'),
+(3, 'Suspended');
 
--- Crear tabla gastos en PostgreSQL
-CREATE TABLE gastos (
-  impuesto DECIMAL(8,2) NOT NULL,
-  nombre_gasto VARCHAR(100) NOT NULL,
-  precio DECIMAL(12,2) NOT NULL,
-  id_gasto INTEGER NOT NULL,
-  id_reparacion INTEGER DEFAULT NULL,
-  id_propiedad INTEGER NOT NULL,
-  id_proveedor INTEGER NOT NULL
+-- Create expenses table in PostgreSQL
+CREATE TABLE expenses (
+  tax DECIMAL(8,2) NOT NULL,
+  expense_name VARCHAR(100) NOT NULL,
+  price DECIMAL(12,2) NOT NULL,
+  id_expense INTEGER NOT NULL,
+  id_repair INTEGER DEFAULT NULL,
+  id_property INTEGER NOT NULL,
+  id_supplier INTEGER NOT NULL
 );
 
-
-
 --
--- Volcado de datos para la tabla `gastos`
+-- Data dump for table `expenses`
 --
 
--- Insertar datos en la tabla gastos en PostgreSQL
-INSERT INTO gastos (impuesto, nombre_gasto, precio, id_gasto, id_reparacion, id_propiedad, id_proveedor) VALUES
-(21.00, 'Materiales de Construcción', 1500.00, 11, 1, 1, 1),
-(18.00, 'Mano de Obra', 2500.50, 12, 2, 2, 2),
-(21.00, 'Pintura', 3000.75, 13, 3, 1, 3),
-(19.50, 'Herramientas', 1200.00, 14, 4, 2, 4),
-(20.00, 'Electricidad', 4500.00, 15, 5, 1, 5),
-(18.75, 'Plomería', 3200.25, 16, 6, 2, 6),
-(21.00, 'Carpintería', 2200.00, 17, 7, 1, 7),
-(20.50, 'Albañilería', 1700.50, 18, 8, 2, 8),
+-- Insert data into expenses table in PostgreSQL
+INSERT INTO expenses (tax, expense_name, price, id_expense, id_repair, id_property, id_supplier) VALUES
+(21.00, 'Building Materials', 1500.00, 11, 1, 1, 1),
+(18.00, 'Labor', 2500.50, 12, 2, 2, 2),
+(21.00, 'Paint', 3000.75, 13, 3, 1, 3),
+(19.50, 'Tools', 1200.00, 14, 4, 2, 4),
+(20.00, 'Electricity', 4500.00, 15, 5, 1, 5),
+(18.75, 'Plumbing', 3200.25, 16, 6, 2, 6),
+(21.00, 'Carpentry', 2200.00, 17, 7, 1, 7),
+(20.50, 'Masonry', 1700.50, 18, 8, 2, 8),
 (19.00, 'Gas', 2900.75, 19, 9, 1, 9),
-(21.00, 'Cerrajería', 3100.00, 20, 10, 2, 10);
+(21.00, 'Locksmith', 3100.00, 20, 10, 2, 10);
 
--- Crear tabla inmobiliaria en PostgreSQL
-CREATE TABLE inmobiliaria (
-  id_inmobiliaria SERIAL PRIMARY KEY,
-  razon_social VARCHAR(255) NOT NULL,
-  ubicacion VARCHAR(255) NOT NULL,
+-- Create real estate table in PostgreSQL
+CREATE TABLE real_estate (
+  id_real_estate SERIAL PRIMARY KEY,
+  business_name VARCHAR(255) NOT NULL,
+  location VARCHAR(255) NOT NULL,
   cuit INTEGER NOT NULL
 );
 
--- Insertar datos en la tabla inmobiliaria en PostgreSQL
-INSERT INTO inmobiliaria (id_inmobiliaria, razon_social, ubicacion, cuit) VALUES
+-- Insert data into real estate table in PostgreSQL
+INSERT INTO real_estate (id_real_estate, business_name, location, cuit) VALUES
 (1, 'Tatooine Realty', 'Tatooine', 12345678),
 (2, 'Alderaan Homes', 'Alderaan', 87654321),
 (3, 'Naboo Estates', 'Naboo', 23456789),
@@ -139,19 +135,20 @@ INSERT INTO inmobiliaria (id_inmobiliaria, razon_social, ubicacion, cuit) VALUES
 (10, 'Jakku Apartments', 'Jakku', 89012345);
 
 
--- --------------------------------------------------------
+
+--- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `localidad`
+-- Table structure for table `location`
 --
 
-CREATE TABLE localidad (
-  id_localidad SERIAL PRIMARY KEY,
-  id_provincia INTEGER NOT NULL,
-  id_cp INTEGER NOT NULL
+CREATE TABLE location (
+  id_location SERIAL PRIMARY KEY,
+  id_province INTEGER NOT NULL,
+  id_postal_code INTEGER NOT NULL
 );
 
-INSERT INTO localidad (id_provincia, id_localidad, id_cp) VALUES
+INSERT INTO location (id_province, id_location, id_postal_code) VALUES
 (100, 1000, 200),
 (102, 1001, 201),
 (103, 1002, 202),
@@ -163,15 +160,15 @@ INSERT INTO localidad (id_provincia, id_localidad, id_cp) VALUES
 (108, 1008, 208),
 (104, 1009, 209);
 
-CREATE TABLE propiedad (
-  id_propiedad int NOT NULL,
-  id_estado int DEFAULT NULL,
-  precio real NOT NULL,
-  id_ubicacion int NOT NULL,
-  PRIMARY KEY (id_propiedad)
+CREATE TABLE property (
+  id_property int NOT NULL,
+  id_state int DEFAULT NULL,
+  price real NOT NULL,
+  id_location int NOT NULL,
+  PRIMARY KEY (id_property)
 );
 
-INSERT INTO propiedad (id_propiedad, id_estado, precio, id_ubicacion) VALUES
+INSERT INTO property (id_property, id_state, price, id_location) VALUES
 (1, 1, 150000, 3),
 (2, 2, 250000, 2),
 (3, 1, 200000, 4),
@@ -187,39 +184,39 @@ INSERT INTO propiedad (id_propiedad, id_estado, precio, id_ubicacion) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `proveedores`
+-- Table structure for table `suppliers`
 --
 
-CREATE TABLE proveedores (
+CREATE TABLE suppliers (
   cuit bigint NOT NULL,
-  razon_social varchar(100) NOT NULL,
-  id_proveedor int NOT NULL,
-  PRIMARY KEY (id_proveedor)
+  business_name varchar(100) NOT NULL,
+  id_supplier int NOT NULL,
+  PRIMARY KEY (id_supplier)
 );
 
-INSERT INTO proveedores (cuit, razon_social, id_proveedor) VALUES
-(12345678, 'Mantenimiento SIMA S.A', 1),
+INSERT INTO suppliers (cuit, business_name, id_supplier) VALUES
+(12345678, 'Maintenance SIMA S.A', 1),
 (12345678, 'ElectroSolutions SRL', 2),
 (87654321, 'GasPlom S.A.', 3),
 (87654321, 'GasPlom S.A.', 4),
-(98765432, 'Pinturas Rápidas', 5),
-(98765432, 'Pinturas Rápidas', 6),
-(45678901, 'Mantenimiento Luz SRL', 7),
-(45678901, 'Mantenimiento Luz SRL', 8),
-(23456789, 'Fontaneros Express', 9),
-(23456789, 'Fontaneros Express', 10);
+(98765432, 'Quick Paints', 5),
+(98765432, 'Quick Paints', 6),
+(45678901, 'Maintenance Light SRL', 7),
+(45678901, 'Maintenance Light SRL', 8),
+(23456789, 'Express Plumbers', 9),
+(23456789, 'Express Plumbers', 10);
 
-CREATE TABLE provincia (
-  id_provincia int NOT NULL,
-  id_localidad int NOT NULL,
-  id_cp int NOT NULL,
-  PRIMARY KEY (id_provincia),
-  FOREIGN KEY (id_localidad) REFERENCES localidad (id_localidad),
-  FOREIGN KEY (id_cp) REFERENCES cp (id_cp)
+CREATE TABLE province (
+  id_province int NOT NULL,
+  id_location int NOT NULL,
+  id_postal_code int NOT NULL,
+  PRIMARY KEY (id_province),
+  FOREIGN KEY (id_location) REFERENCES location (id_location),
+  FOREIGN KEY (id_postal_code) REFERENCES postal_code (id_postal_code)
 );
 
 
-INSERT INTO provincia (id_provincia, id_localidad, id_cp) VALUES
+INSERT INTO province (id_province, id_location, id_postal_code) VALUES
 (100, 1001, 201),
 (101, 1000, 202),
 (102, 1009, 203),
@@ -236,16 +233,16 @@ INSERT INTO provincia (id_provincia, id_localidad, id_cp) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `reparaciones`
+-- Table structure for table `repairs`
 --
 
-CREATE TABLE reparaciones (
-  id_reparacion int NOT NULL,
-  fecha_reparacion date DEFAULT NULL,
-  PRIMARY KEY (id_reparacion)
+CREATE TABLE repairs (
+  id_repair int NOT NULL,
+  repair_date date DEFAULT NULL,
+  PRIMARY KEY (id_repair)
 );
 
-INSERT INTO reparaciones (id_reparacion, fecha_reparacion) VALUES
+INSERT INTO repairs (id_repair, repair_date) VALUES
 (1, '2024-01-15'),
 (2, '2024-01-16'),
 (3, '2024-01-17'),
@@ -257,70 +254,71 @@ INSERT INTO reparaciones (id_reparacion, fecha_reparacion) VALUES
 (9, '2024-01-23'),
 (10, '2024-01-24');
 
-CREATE TABLE tipodepago (
-  id_tipodepago int NOT NULL,
-  nombre_tipo varchar(255) NOT NULL,
-  PRIMARY KEY (id_tipodepago)
+CREATE TABLE payment_type (
+  id_payment_type int NOT NULL,
+  type_name varchar(255) NOT NULL,
+  PRIMARY KEY (id_payment_type)
 );
 
-INSERT INTO tipodepago (id_tipodepago, nombre_tipo) VALUES
-(1, 'Efectivo'),
-(2, 'Tarjeta de crédito'),
-(3, 'Transferencia bancaria'),
-(4, 'Cheque'),
-(5, 'Pago móvil'),
+INSERT INTO payment_type (id_payment_type, type_name) VALUES
+(1, 'Cash'),
+(2, 'Credit card'),
+(3, 'Bank transfer'),
+(4, 'Check'),
+(5, 'Mobile payment'),
 (6, 'Bitcoin'),
 (7, 'PayPal'),
-(8, 'Giro postal'),
-(9, 'Criptomoneda'),
-(10, 'Dinero electrónico');
+(8, 'Postal order'),
+(9, 'Cryptocurrency'),
+(10, 'Electronic money');
+
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tipomoneda`
+-- Table structure for table `currency_type`
 --
 
-CREATE TABLE tipomoneda (
-  id_tipodemoneda SERIAL PRIMARY KEY,
-  nombre_tipo VARCHAR(255) NOT NULL
+CREATE TABLE currency_type (
+  id_currency_type SERIAL PRIMARY KEY,
+  type_name VARCHAR(255) NOT NULL
 );
 
-INSERT INTO tipomoneda (id_tipodemoneda, nombre_tipo) VALUES
-(1, 'Dólar estadounidense'),
+INSERT INTO currency_type (id_currency_type, type_name) VALUES
+(1, 'US Dollar'),
 (2, 'Euro'),
-(3, 'Libra esterlina'),
-(4, 'Yen japonés'),
-(5, 'Franco suizo'),
-(6, 'Dólar australiano'),
-(7, 'Dólar canadiense'),
-(8, 'Dólar neozelandés'),
-(9, 'Peso mexicano'),
-(10, 'Peso argentino');
+(3, 'British Pound'),
+(4, 'Japanese Yen'),
+(5, 'Swiss Franc'),
+(6, 'Australian Dollar'),
+(7, 'Canadian Dollar'),
+(8, 'New Zealand Dollar'),
+(9, 'Mexican Peso'),
+(10, 'Argentine Peso');
 
-CREATE TABLE tipo_cliente (
-  ID_tipo_cliente SERIAL PRIMARY KEY,
-  nombre_tipo VARCHAR(255) NOT NULL,
-  fecha_nacimiento DATE
+CREATE TABLE customer_type (
+  ID_customer_type SERIAL PRIMARY KEY,
+  type_name VARCHAR(255) NOT NULL,
+  birth_date DATE
 );
 
-INSERT INTO tipo_cliente (ID_tipo_cliente, nombre_tipo, fecha_nacimiento) VALUES
-(1, 'Titular', NULL),
-(2, 'CoTitular', NULL),
-(3, 'Persona_Autorizada', NULL);
+INSERT INTO customer_type (ID_customer_type, type_name, birth_date) VALUES
+(1, 'Primary', NULL),
+(2, 'Co-Primary', NULL),
+(3, 'Authorized Person', NULL);
 
-CREATE TABLE transacciones (
-  id_transaccion SERIAL PRIMARY KEY,
-  id_tipodepago INT NOT NULL,
-  id_tipodemoneda INT NOT NULL,
-  fecha DATE NOT NULL
+CREATE TABLE transactions (
+  id_transaction SERIAL PRIMARY KEY,
+  id_payment_type INT NOT NULL,
+  id_currency_type INT NOT NULL,
+  transaction_date DATE NOT NULL
 );
 
 --
--- Volcado de datos para la tabla `transacciones`
+-- Data dump for table `transactions`
 --
 
-INSERT INTO transacciones (id_transaccion, id_tipodepago, id_tipodemoneda, fecha) VALUES
+INSERT INTO transactions (id_transaction, id_payment_type, id_currency_type, transaction_date) VALUES
 (1, 3, 5, '2024-06-06'),
 (2, 5, 7, '2024-06-07'),
 (3, 7, 9, '2024-06-08'),
@@ -332,17 +330,17 @@ INSERT INTO transacciones (id_transaccion, id_tipodepago, id_tipodemoneda, fecha
 (9, 8, 2, '2024-06-14'),
 (10, 10, 4, '2024-06-15');
 
-CREATE TABLE ubicacion (
-  id_provincia INT NOT NULL,
-  id_localidad INT NOT NULL,
-  id_cp INT NOT NULL,
-  calle VARCHAR(255) NOT NULL,
-  precio FLOAT NOT NULL,
-  unidad_funcional INT NOT NULL,
-  id_ubicacion SERIAL PRIMARY KEY
+CREATE TABLE location (
+  id_province INT NOT NULL,
+  id_locality INT NOT NULL,
+  id_postal_code INT NOT NULL,
+  street VARCHAR(255) NOT NULL,
+  price FLOAT NOT NULL,
+  functional_unit INT NOT NULL,
+  id_location SERIAL PRIMARY KEY
 );
 
-INSERT INTO ubicacion (id_provincia, id_localidad, id_cp, calle, precio, unidad_funcional, id_ubicacion) VALUES
+INSERT INTO location (id_province, id_locality, id_postal_code, street, price, functional_unit, id_location) VALUES
 (100, 1000, 200, 'lavalleja 135', 200020, 12345, 1),
 (101, 1001, 201, 'acoyte 1350', 886900, 12346, 2),
 (102, 1002, 202, 'frias 2020', 1701460, 12347, 3),
@@ -355,100 +353,100 @@ INSERT INTO ubicacion (id_provincia, id_localidad, id_cp, calle, precio, unidad_
 (109, 1009, 209, 'bogota 5656', 2006590, 12354, 10);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `alquiler`
+-- Indexes for table `rent`
 --
-ALTER TABLE alquiler
-  ADD CONSTRAINT fk_id_inmobiliaria FOREIGN KEY (id_inmobiliaria) REFERENCES inmobiliaria (id_inmobiliaria),
-  ADD CONSTRAINT fk_id_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad (id_propiedad),
-  ADD CONSTRAINT fk_id_cliente FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente),
-  ADD CONSTRAINT fk_id_transaccion FOREIGN KEY (id_transaccion) REFERENCES transacciones (id_transaccion);
+ALTER TABLE rent
+  ADD CONSTRAINT fk_id_real_estate FOREIGN KEY (id_real_estate) REFERENCES real_estate (id_real_estate),
+  ADD CONSTRAINT fk_id_property FOREIGN KEY (id_property) REFERENCES property (id_property),
+  ADD CONSTRAINT fk_id_customer FOREIGN KEY (id_customer) REFERENCES customer (id_customer),
+  ADD CONSTRAINT fk_id_transaction FOREIGN KEY (id_transaction) REFERENCES transactions (id_transaction);
 
 
-CREATE INDEX idx_id_inmobiliaria ON alquiler (id_inmobiliaria);
-CREATE INDEX idx_id_propiedad ON alquiler (id_propiedad);
-CREATE INDEX idx_id_cliente ON alquiler (id_cliente);
-CREATE INDEX idx_id_transaccion ON alquiler (id_transaccion);
+CREATE INDEX idx_id_real_estate ON rent (id_real_estate);
+CREATE INDEX idx_id_property ON rent (id_property);
+CREATE INDEX idx_id_customer ON rent (id_customer);
+CREATE INDEX idx_id_transaction ON rent (id_transaction);
 
 
-CREATE INDEX idx_fk_tipo_cliente ON cliente (id_tipo_cliente);
+CREATE INDEX idx_fk_customer_type ON customer (id_customer_type);
 
 ALTER TABLE cp
-  ADD CONSTRAINT fk_cp_provincia FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia),
-  ADD CONSTRAINT fk_cp_localidad FOREIGN KEY (id_localidad) REFERENCES localidad (id_localidad);
+  ADD CONSTRAINT fk_cp_province FOREIGN KEY (id_province) REFERENCES province (id_province),
+  ADD CONSTRAINT fk_cp_locality FOREIGN KEY (id_locality) REFERENCES locality (id_locality);
 
-CREATE INDEX idx_fk_cp_provincia ON cp (id_provincia);
-CREATE INDEX idx_fk_cp_localidad ON cp (id_localidad);
+CREATE INDEX idx_fk_cp_province ON cp (id_province);
+CREATE INDEX idx_fk_cp_locality ON cp (id_locality);
 
-ALTER TABLE estados
-  ADD PRIMARY KEY (id_estado);
+ALTER TABLE states
+  ADD PRIMARY KEY (id_state);
 
-CREATE INDEX idx_fk_id_reparacion ON gastos (id_reparacion);
-CREATE INDEX idx_fk_id_proveedor ON gastos (id_proveedor);
-CREATE INDEX idx_id_propiedad_gastos ON gastos (id_propiedad);
+CREATE INDEX idx_fk_id_repair ON expenses (id_repair);
+CREATE INDEX idx_fk_id_supplier ON expenses (id_supplier);
+CREATE INDEX idx_id_property_expenses ON expenses (id_property);
 
-ALTER TABLE localidad
-  ADD CONSTRAINT fk_localidad_provincia FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia),
-  ADD CONSTRAINT fk_localidad_cp FOREIGN KEY (id_cp) REFERENCES cp (id_cp);
+ALTER TABLE locality
+  ADD CONSTRAINT fk_locality_province FOREIGN KEY (id_province) REFERENCES province (id_province),
+  ADD CONSTRAINT fk_locality_cp FOREIGN KEY (id_cp) REFERENCES cp (id_cp);
 
-CREATE INDEX idx_fk_localidad_provincia ON localidad (id_provincia);
-CREATE INDEX idx_fk_localidad_cp ON localidad (id_cp);
+CREATE INDEX idx_fk_locality_province ON locality (id_province);
+CREATE INDEX idx_fk_locality_cp ON locality (id_cp);
 
-ALTER TABLE propiedad
-  ADD CONSTRAINT fk_id_ubicacion FOREIGN KEY (id_ubicacion) REFERENCES ubicacion (id_ubicacion),
-  ADD CONSTRAINT fk_id_estado FOREIGN KEY (id_estado) REFERENCES estados (id_estado);
+ALTER TABLE property
+  ADD CONSTRAINT fk_id_location FOREIGN KEY (id_location) REFERENCES location (id_location),
+  ADD CONSTRAINT fk_id_state FOREIGN KEY (id_state) REFERENCES states (id_state);
 
-CREATE INDEX idx_id_ubicacion ON propiedad (id_ubicacion);
-CREATE INDEX idx_id_estado ON propiedad (id_estado);
+CREATE INDEX idx_id_location ON property (id_location);
+CREATE INDEX idx_id_state ON property (id_state);
 
-ALTER TABLE ubicacion
-  ADD CONSTRAINT fk_ubicacion_provincia FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia),
-  ADD CONSTRAINT fk_ubicacion_localidad FOREIGN KEY (id_localidad) REFERENCES localidad (id_localidad),
-  ADD CONSTRAINT fk_ubicacion_cp FOREIGN KEY (id_cp) REFERENCES cp (id_cp);
+ALTER TABLE location
+  ADD CONSTRAINT fk_location_province FOREIGN KEY (id_province) REFERENCES province (id_province),
+  ADD CONSTRAINT fk_location_locality FOREIGN KEY (id_locality) REFERENCES locality (id_locality),
+  ADD CONSTRAINT fk_location_cp FOREIGN KEY (id_cp) REFERENCES cp (id_cp);
 
-
---
-ALTER TABLE alquiler
-  ADD CONSTRAINT alquiler_fk_id_inmobiliaria FOREIGN KEY (id_inmobiliaria) REFERENCES inmobiliaria (id_inmobiliaria),
-  ADD CONSTRAINT alquiler_fk_id_propiedad FOREIGN KEY (id_propiedad) REFERENCES propiedad (id_propiedad),
-  ADD CONSTRAINT alquiler_fk_id_cliente FOREIGN KEY (id_cliente) REFERENCES cliente (id_cliente),
-  ADD CONSTRAINT alquiler_fk_id_transaccion FOREIGN KEY (id_transaccion) REFERENCES transacciones (id_transaccion);
 
 --
--- Filtros para la tabla `cliente`
---
-ALTER TABLE cliente
-  ADD CONSTRAINT fk_tipo_cliente FOREIGN KEY (id_tipo_cliente) REFERENCES tipo_cliente (ID_tipo_cliente);
+ALTER TABLE rent
+  ADD CONSTRAINT rent_fk_id_real_estate FOREIGN KEY (id_real_estate) REFERENCES real_estate (id_real_estate),
+  ADD CONSTRAINT rent_fk_id_property FOREIGN KEY (id_property) REFERENCES property (id_property),
+  ADD CONSTRAINT rent_fk_id_customer FOREIGN KEY (id_customer) REFERENCES customer (id_customer),
+  ADD CONSTRAINT rent_fk_id_transaction FOREIGN KEY (id_transaction) REFERENCES transactions (id_transaction);
 
 --
--- Filtros para la tabla `gastos`
+-- Filters for table `customer`
 --
-ALTER TABLE gastos
-  ADD CONSTRAINT fk_id_proveedor FOREIGN KEY (id_proveedor) REFERENCES proveedores (id_proveedor),
-  ADD CONSTRAINT fk_id_reparacion FOREIGN KEY (id_reparacion) REFERENCES reparaciones (id_reparacion),
-  ADD CONSTRAINT gastos_ibfk_1 FOREIGN KEY (id_propiedad) REFERENCES propiedad (id_propiedad);
+ALTER TABLE customer
+  ADD CONSTRAINT fk_customer_type FOREIGN KEY (id_customer_type) REFERENCES customer_type (ID_customer_type);
 
 --
--- Filtros para la tabla `propiedad`
+-- Filters for table `expenses`
 --
-ALTER TABLE propiedad
-  ADD CONSTRAINT propiedad_ibfk_1 FOREIGN KEY (id_ubicacion) REFERENCES ubicacion (id_ubicacion),
-  ADD CONSTRAINT propiedad_ibfk_2 FOREIGN KEY (id_estado) REFERENCES estados (id_estado);
+ALTER TABLE expenses
+  ADD CONSTRAINT fk_id_supplier FOREIGN KEY (id_supplier) REFERENCES suppliers (id_supplier),
+  ADD CONSTRAINT fk_id_repair FOREIGN KEY (id_repair) REFERENCES repairs (id_repair),
+  ADD CONSTRAINT expenses_ibfk_1 FOREIGN KEY (id_property) REFERENCES property (id_property);
 
 --
--- Filtros para la tabla `transacciones`
+-- Filters for table `property`
 --
-ALTER TABLE transacciones
-  ADD CONSTRAINT fk_tipodemoneda FOREIGN KEY (id_tipodemoneda) REFERENCES tipomoneda (id_tipodemoneda),
-  ADD CONSTRAINT fk_tipodepago FOREIGN KEY (id_tipodepago) REFERENCES tipodepago (id_tipodepago);
+ALTER TABLE property
+  ADD CONSTRAINT property_ibfk_1 FOREIGN KEY (id_location) REFERENCES location (id_location),
+  ADD CONSTRAINT property_ibfk_2 FOREIGN KEY (id_state) REFERENCES states (id_state);
 
 --
--- Filtros para la tabla `ubicacion`
+-- Filters for table `transactions`
 --
-ALTER TABLE ubicacion
-  ADD CONSTRAINT ubicacion_ibfk_1 FOREIGN KEY (id_provincia) REFERENCES provincia (id_provincia),
-  ADD CONSTRAINT ubicacion_ibfk_2 FOREIGN KEY (id_cp) REFERENCES cp (id_cp),
-  ADD CONSTRAINT ubicacion_ibfk_3 FOREIGN KEY (id_localidad) REFERENCES localidad (id_localidad);
+ALTER TABLE transactions
+  ADD CONSTRAINT fk_currency_type FOREIGN KEY (id_currency_type) REFERENCES currency_type (id_currency_type),
+  ADD CONSTRAINT fk_payment_type FOREIGN KEY (id_payment_type) REFERENCES payment_type (id_payment_type);
+
+--
+-- Filters for table `location`
+--
+ALTER TABLE location
+  ADD CONSTRAINT location_ibfk_1 FOREIGN KEY (id_province) REFERENCES province (id_province),
+  ADD CONSTRAINT location_ibfk_2 FOREIGN KEY (id_cp) REFERENCES cp (id_cp),
+  ADD CONSTRAINT location_ibfk_3 FOREIGN KEY (id_locality) REFERENCES locality (id_locality);

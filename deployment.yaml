@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: your-image:tag
+          image: agostinadevdc/finanzas_py:latest
           env:
             - name: FLASK_ENV
               valueFrom:
@@ -22,9 +22,21 @@ spec:
                   name: flask-config
                   key: FLASK_ENV
             - name: DATABASE_URL
+              value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@db:5432/$(POSTGRES_DB)"
+            - name: POSTGRES_USER
               valueFrom:
-                configMapKeyRef:
-                  name: flask-config
-                  key: DATABASE_URL
+                secretKeyRef:
+                  name: db-credentials  # Defined on secrets.yaml
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials  # Defined on secrets.yaml
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials  # Defined on secrets.yaml
+                  key: POSTGRES_DB
           ports:
             - containerPort: 5000

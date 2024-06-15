@@ -10,9 +10,12 @@ git clone https://your-repository.git
 cd your-repository
 ```
 
+### Rename secretExample.yaml to secret.yaml
+Ensure that your secretExample.yaml file is renamed to secret.yaml to match the name you are using in your Kubernetes deployment process.
+
 ### 2. Create a Secret with Database Credentials
 ```sh
-kubectl create secret generic db-secret --from-literal=username=usernameExample --from-literal=password=passwordExample
+kubectl apply -f secret.yaml
 ```
 
 ### 3. Apply the YAML Files
