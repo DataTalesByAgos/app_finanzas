@@ -1,24 +1,21 @@
-# Proyecto Flask en Kubernetes
+# Flask Project on Kubernetes
 
-Este proyecto consiste en una aplicación Flask desplegada en un clúster de Kubernetes. Utiliza un ConfigMap para la configuración, un Deployment para la aplicación, un PersistentVolumeClaim para almacenamiento persistente, y un Service para exponer la aplicación al exterior.
+This project involves a Flask application deployed on a Kubernetes cluster. It utilizes a ConfigMap for configuration, a Deployment for the application, a PersistentVolumeClaim for persistent storage, and a Service to expose the application externally.
 
-## Instrucciones de Inicialización
+## Initialization Instructions
 
-### 1. Clonar el Repositorio
-
+### 1. Clone the Repository
 ```sh
-git clone https://tu-repositorio.git
-cd tu-repositorio
+git clone https://your-repository.git
+cd your-repository
 ```
 
-2. Crear un Secret con las Credenciales de la Base de Datos
-
+### 2. Create a Secret with Database Credentials
 ```sh
-kubectl create secret generic db-secret --from-literal=username=usuario --from-literal=password=contraseña
+kubectl create secret generic db-secret --from-literal=username=usernameExample --from-literal=password=passwordExample
 ```
 
-3. Aplicar los Archivos YAML
-
+### 3. Apply the YAML Files
 ```sh
 kubectl apply -f configmap.yaml
 kubectl apply -f pvc.yaml
@@ -26,14 +23,11 @@ kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 ```
 
-4. Verificar el Estado de los Recursos
+### 4. Check the Status of Resources
 ```sh
-kubectl get pods  # Verifica que los pods estén en estado 'Running'
-kubectl get svc   # Obtiene la dirección IP externa del Service para acceder a la aplicación
+kubectl get pods  # Check that pods are in 'Running' state
+kubectl get svc   # Get the external IP address of the Service to access the application
 ```
 
-5. Acceder a la Aplicación
-Abre un navegador web y visita la dirección IP externa del Service en el puerto 80 para acceder a tu aplicación Flask.
-```sh
-Guarda este texto en un archivo `README.md` en tu repositorio de GitHub para proporcionar una guía clara y estructurada sobre cómo inicializar y desplegar tu proyecto Flask en Kubernetes.
-```
+### 5. Access the Application
+Open a web browser and visit the external IP address of the Service on port 80 to access your Flask application.
