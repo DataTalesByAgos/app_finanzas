@@ -7,7 +7,7 @@ from .routes import bp as routes_bp
 def create_app(env='dev'):
     app = Flask(__name__, template_folder='./templates')
     
-    # Cargar configuración según el entorno
+    # Load cfg based on the desired env
     if env == 'dev':
         app.config.from_object(DevelopmentConfig)
     elif env == 'prod':
