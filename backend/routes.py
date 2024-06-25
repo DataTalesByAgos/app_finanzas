@@ -3,7 +3,6 @@ from .extensions import db
 
 bp = Blueprint('api', __name__)
 
-# Ruta para servir el archivo HTML
 @bp.route('/')
 def index():
     return render_template('index.html')
@@ -36,7 +35,7 @@ def get_single(table_name, id):
 @bp.route('/<table_name>', methods=['POST'])
 def process_form():
     table_name = request.form['route']
-    print('Table Name:', table_name) # Imprime el nombre de la tabla en la consola del servidor Flask
+    print('Table Name:', table_name) #Test
     
 def create(table_name):
     try:
